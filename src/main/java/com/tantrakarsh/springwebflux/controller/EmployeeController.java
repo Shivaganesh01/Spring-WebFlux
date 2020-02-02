@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RestController(value = "/emp")
+import java.time.Duration;
+
+@RestController
 public class EmployeeController {
 
     @Autowired
@@ -36,7 +38,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Employee> findAll() {
-        return employeeService.findAll();
+        return employeeService.findAll().delayElements(Duration.ofSeconds(2));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
