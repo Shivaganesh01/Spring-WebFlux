@@ -23,7 +23,14 @@ public class EmployeeController {
     public void createEmployee(@RequestBody Employee employee) {
         employeeService.createEmployee(employee);
     }
-
+    
+    @Operation(summary = "Get employee details by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Employee details found",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Employee.class)) }),
+            @ApiResponse(responseCode = "404", description = "Employee not found",
+                    content = @Content) })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Mono<Employee>> findById(@PathVariable("id") Integer id) {
         Mono<Employee> employeeMono = employeeService.findById(id);
