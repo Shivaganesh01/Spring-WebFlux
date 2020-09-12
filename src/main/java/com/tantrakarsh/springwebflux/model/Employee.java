@@ -10,7 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Employee {
 
     @Id
+    @NotNull
+    @NotBlank
     int id;
+    @NotBlank
+    @Size(min = 2, max = 20)
     String name;
     String designation;
     long salary;
